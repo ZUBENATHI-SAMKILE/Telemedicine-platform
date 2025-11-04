@@ -162,12 +162,6 @@ const App = () => {
             </button>
           </div>
 
-          <div className="mt-8 pt-6 border-t">
-            <p className="text-xs text-gray-500 text-center mb-2">Demo Doctor Login:</p>
-            <div className="text-xs text-gray-600 space-y-1">
-              <p className="text-center">sarah.johnson@telemed.com / doctor123</p>
-            </div>
-          </div>
         </div>
       </div>
     );
