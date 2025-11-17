@@ -8,11 +8,11 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# ✅ Always create database in same folder as this script
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, "telemedicine.db")
 
-# --- Pre-registered doctors ---
+# Pre-registered doctors data
 DOCTORS = [
     {
         'id': 101,
@@ -77,12 +77,12 @@ def init_db():
     """Initialize the database and insert pre-registered doctors."""
     if os.path.exists(DATABASE):
         os.remove(DATABASE)
-        print("🗑️ Removed old telemedicine.db")
+        print("Removed old telemedicine.db")
 
     conn = get_db()
     cursor = conn.cursor()
 
-    print("⚙️ Creating tables...")
+    print(" Creating tables...")
 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS patients (
@@ -132,9 +132,9 @@ def init_db():
         )
     ''')
 
-    print("✅ Tables created successfully.")
+    print(" Tables created successfully.")
 
-    # --- Insert pre-registered doctors ---
+    
     for d in DOCTORS:
         hashed_pw = generate_password_hash(d['password'])
         cursor.execute('''
@@ -147,10 +147,10 @@ def init_db():
 
     conn.commit()
     conn.close()
-    print("✅ Doctors inserted successfully.\nDatabase ready!")
+    print(" Doctors inserted successfully.\nDatabase ready!")
 
 
-# --- API ROUTES ---
+# API ROUTES 
 @app.route('/api/auth/register', methods=['POST'])
 def register():
     data = request.json
@@ -360,11 +360,10 @@ def health():
 
 if __name__ == '__main__':
     if not os.path.exists(DATABASE):
-        print("🧠 No database found — initializing now...")
+        print(" No database found — initializing now...")
         init_db()
     else:
-        print("✅ Database already exists — skipping initialization.")
+        print(" Database already exists — skipping initialization.")
 
     app.run( host='0.0.0.0', port=5000)
     
-# === END OF FILE ===

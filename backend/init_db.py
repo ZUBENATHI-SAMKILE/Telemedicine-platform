@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash
 import os
 from datetime import datetime
 
-# === CONFIGURATION ===
+# CONFIGURATION 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASE = os.path.join(BASE_DIR, "telemedicine.db")
 
@@ -70,14 +70,14 @@ def init_database():
     # Remove existing database
     if os.path.exists(DATABASE):
         os.remove(DATABASE)
-        print(f"🗑️ Removed existing database: {DATABASE}")
+        print(f" Removed existing database: {DATABASE}")
     
     # Create connection
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    print("⚙️ Creating tables...")
+    print(" Creating tables...")
 
-    # === PATIENTS TABLE ===
+    # PATIENTS TABLE 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS patients (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -90,7 +90,7 @@ def init_database():
     ''')
     print("✓ Created patients table")
 
-    # === DOCTORS TABLE ===
+    # DOCTORS TABLE 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS doctors (
             id INTEGER PRIMARY KEY,
@@ -106,7 +106,7 @@ def init_database():
     ''')
     print("✓ Created doctors table")
 
-    # === CONSULTATIONS TABLE ===
+    # CONSULTATIONS TABLE 
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS consultations (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -131,8 +131,8 @@ def init_database():
     ''')
     print("✓ Created consultations table")
 
-    # === INSERT DEFAULT DOCTORS ===
-    print("\n🩺 Inserting pre-registered doctors...")
+    #  INSERT DEFAULT DOCTORS 
+    print("\n Inserting pre-registered doctors...")
     for doctor in DOCTORS:
         hashed_pw = generate_password_hash(doctor['password'])
         cursor.execute('''
@@ -154,7 +154,7 @@ def init_database():
     conn.close()
 
     print("\n" + "="*60)
-    print("🎉 Database initialized successfully!")
+    print(" Database initialized successfully!")
     print("="*60)
     print("\nRegistered Doctors:")
     print("-" * 60)
@@ -168,5 +168,4 @@ if __name__ == '__main__':
     try:
         init_database()
     except Exception as e:
-        print(f"\n❌ Error initializing database: {e}")
-# === END OF FILE ===
+        print(f"\n Error initializing database: {e}")
