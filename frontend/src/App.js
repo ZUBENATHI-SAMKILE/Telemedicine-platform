@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Video, Phone, PhoneOff, Calendar, User, FileText, CheckCircle, Clock, AlertCircle, History, Edit } from 'lucide-react';
 import Chatbot from './Chatbot';
 
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = "https://telemedicine-platform-1-wzh0.onrender.com/api";
 
 const DOCTORS = [
   {
