@@ -1,7 +1,9 @@
+name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # change to your default branch if needed
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -15,18 +17,18 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install dependencies (frontend)
         run: npm ci
+        working-directory: ./frontend
 
-      - name: Build
+      - name: Build (frontend)
         run: npm run build
+        working-directory: ./frontend
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./frontend/build
           publish_branch: gh-pages
-          # optional: set user/commit message
-          # committer_name: github-actions
-          # committer_email: actions@github.com
+          commit_message: "Deploy from GitHub Actions: ${{ github.sha }}"
